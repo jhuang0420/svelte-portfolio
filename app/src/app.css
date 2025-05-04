@@ -1,0 +1,82 @@
+/* src/app.css */
+:root {
+  --primary: #3a86ff;
+  --primary-hover: #2667cc;
+  --dark: #2b2d42;
+  --dark-hover: #1a1c2e;
+  --light: #f8f9fa;
+  --light-hover: #e9ecef;
+  --border: #e0e0e0;
+  --bg: #ffffff;
+  --bg-rgb: 255, 255, 255;
+
+  /* Spacing */
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  
+  /* Typography */
+  --font-base: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'SF Mono', monospace;
+
+  --text: #2b2d42;
+  --text-secondary: #4a4a4a;
+  --text-inverse: #ffffff;
+  --card-bg: #ffffff;
+  --button-secondary-bg: #ffffff;
+  --button-secondary-hover: #f0f0f0;
+}
+
+.dark {
+  --primary: #4d9eff;
+  --primary-hover: #3a86ff;
+  --dark: #f8f9fa;
+  --light: #2b2d42;
+  --border: #444;
+  --bg: #1a1a1a;
+  --bg-rgb: 26, 26, 26;
+
+  --text: #f8f9fa;
+  --text-secondary: #e0e0e0;
+  --text-inverse: #1a1a1a;
+  --card-bg: #2d2d2d;
+  --button-secondary-bg: #2d2d2d;
+  --button-secondary-hover: #3d3d3d;
+}
+
+/* Base Styles */
+body {
+  font-family: var(--font-base);
+  line-height: 1.6;
+  color: var(--dark);
+  background-color: var(--bg);
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Layout Container */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+/* Skip Link (Accessibility) */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--primary);
+  color: white;
+  padding: var(--space-sm);
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+
