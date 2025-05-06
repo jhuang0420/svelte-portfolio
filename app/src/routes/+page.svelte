@@ -68,9 +68,9 @@
                     <span>TypeScript</span>
                     <span>CSS</span>
                 </div>
-                <a href="/projects/portfolio" class="button"
-                    >View Project Details</a
-                >
+                <a href="/projects/portfolio" class="button primary">
+                    View Project Details
+                </a>
             </div>
             <div class="project-image">
                 <img
@@ -78,6 +78,7 @@
                     alt="Portfolio Website Screenshot"
                     width="600"
                     height="400"
+                    loading="lazy"
                 />
             </div>
         </div>
@@ -92,6 +93,11 @@
 </div>
 
 <style>
+    :global(html, body) {
+        min-width: 400px;
+        overflow-x: auto; /* Allows horizontal scrolling if needed */
+    }
+
     /* Base Styles */
     .homepage {
         display: flex;
@@ -201,7 +207,7 @@
         color: var(--text);
         border: 1px solid var(--border);
         border-radius: 8px;
-        padding: 2rem;
+        padding: 1.5rem;
         transition:
             transform 0.2s ease,
             box-shadow 0.2s ease;
@@ -214,8 +220,10 @@
 
     /* Project Section */
     .featured-project {
-        background: var(--light);
+        background: linear-gradient(135deg, var(--light) 0%, var(--bg) 100%);
+
         padding: 3rem 0;
+        border-radius: 12px;
     }
 
     .project-card {
@@ -224,21 +232,24 @@
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 2rem;
+        
     }
 
     .project-content {
-        flex: 1;
+        flex: 3;
+        padding: 2rem;
     }
 
     .project-image {
-        flex: 1;
+        flex: 2;
         display: flex;
         align-items: center;
+        border-radius: 8px;
     }
 
     .project-image img {
         border-radius: 8px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
         max-width: 100%;
         height: auto;
     }
@@ -271,11 +282,14 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        padding: 0.75rem 1.5rem;
+        padding: 0.5rem 1rem;
         border-radius: 6px;
         font-weight: 500;
         text-decoration: none;
         transition: all 0.2s ease;
+        cursor: pointer;
+        border: none;
+        font-size: 1rem;
     }
 
     .button.primary {
@@ -285,6 +299,8 @@
 
     .button.primary:hover {
         background: var(--primary-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 2px 8px rgba(var(--primary-rgb), 0.2);
     }
 
     .button.secondary {
@@ -303,6 +319,10 @@
             background: linear-gradient(135deg, var(--dark) 0%, var(--bg) 100%);
         }
 
+        .button.primary:hover {
+            box-shadow: 0 2px 8px rgba(var(--primary-rgb), 0.3);
+        }
+
         .skill-card {
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
@@ -314,9 +334,10 @@
     }
 
     /* Responsive Design */
-    @media (max-width: 900px) {
+    @media (max-width: 800px) {
         .hero-content {
             flex-direction: column;
+            max-width: 400px;
         }
 
         .hero-text {
@@ -334,15 +355,34 @@
 
         .project-card {
             flex-direction: column;
+            align-items: center;
         }
 
         .project-image {
             order: 1;
+            margin-bottom: 1rem;
+            max-width: 450px;
+            
         }
 
         .project-content {
             order: 2;
+            text-align: center; /* Center text content */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center child elements */
+            max-width: 500px;
         }
+
+        .tech-tags {
+            justify-content: center; /* Center tech tags */
+        }
+
+        .button {
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+        }
+
     }
 
     @media (max-width: 600px) {
@@ -363,7 +403,12 @@
         .skills-grid {
             grid-template-columns: 1fr;
         }
-        .project-card,
+        .project-card {
+            padding: 0 1rem;
+        }
+        .project-image img {
+            max-width: 100%; /* Ensure image doesn't overflow */
+        }
         .cta {
             padding: 0 1.5rem;
         }

@@ -1,18 +1,18 @@
 <script>
     import { page } from "$app/stores";
-    import { fade, fly } from 'svelte/transition';
-    import { quintOut } from 'svelte/easing';
+    import { fade, fly } from "svelte/transition";
+    import { quintOut } from "svelte/easing";
     import { afterNavigate } from "$app/navigation";
-    import { onMount } from 'svelte';
-    import '../app.css'; 
-    
+    import { onMount } from "svelte";
+    import "../app.css";
+
     // Theme and UI states
     let darkMode = false;
     let scrolled = false;
     let isLoading = true;
-    let activeSection = '';
+    let activeSection = "";
     let mobileMenuOpen = false;
-    
+
     // Navigation items
     const navItems = [
         { name: "Home", href: "/" },
@@ -24,41 +24,44 @@
     // Toggle dark mode - corrected version
     function toggleDarkMode() {
         darkMode = !darkMode;
-        if (typeof document !== 'undefined') {
-            document.documentElement.classList.toggle('dark', darkMode);
-            localStorage.setItem('darkMode', darkMode.toString());
+        if (typeof document !== "undefined") {
+            document.documentElement.classList.toggle("dark", darkMode);
+            localStorage.setItem("darkMode", darkMode.toString());
         }
     }
 
     // Initialize states - single onMount
     onMount(() => {
         // Load saved theme preference
-        if (typeof window !== 'undefined') {
+        if (typeof window !== "undefined") {
             // Check localStorage
-            darkMode = localStorage.getItem('darkMode') === 'true';
-            document.documentElement.classList.toggle('dark', darkMode);
+            darkMode = localStorage.getItem("darkMode") === "true";
+            document.documentElement.classList.toggle("dark", darkMode);
 
             // Scroll observer
-            window.addEventListener('scroll', () => {
+            window.addEventListener("scroll", () => {
                 scrolled = window.scrollY > 10;
             });
 
             // Section observer
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        activeSection = entry.target.id;
-                    }
-                });
-            }, { threshold: 0.5 });
-            
-            document.querySelectorAll('section').forEach(section => {
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            activeSection = entry.target.id;
+                        }
+                    });
+                },
+                { threshold: 0.5 },
+            );
+
+            document.querySelectorAll("section").forEach((section) => {
                 observer.observe(section);
             });
         }
 
         // Simulate loading completion
-        setTimeout(() => isLoading = false, 800);
+        setTimeout(() => (isLoading = false), 800);
     });
 
     // Close mobile menu on navigation
@@ -66,100 +69,125 @@
 </script>
 
 {#if isLoading}
-    <div class="loader" transition:fly={{ y: 20, duration: 300, easing: quintOut }}>
+    <div
+        class="loader"
+        transition:fly={{ y: 20, duration: 300, easing: quintOut }}
+    >
         <div class="spinner"></div>
     </div>
 {:else}
-    <nav class="navbar" class:scrolled>
-        <div class="nav-container">
-            <a href="/" class="logo">JH</a>
+    <div class="layout-container">
+        <nav class="navbar" class:scrolled>
+            <div class="nav-container">
+                <a href="/" class="logo">JH</a>
 
-            <div class="nav-links">
-                {#each navItems as item}
-                    <a
-                        href={item.href}
-                        class:active={activeSection === item.name.toLowerCase() || $page.url.pathname === item.href}
+                <div class="nav-links">
+                    {#each navItems as item}
+                        <a
+                            href={item.href}
+                            class:active={activeSection ===
+                                item.name.toLowerCase() ||
+                                $page.url.pathname === item.href}
+                        >
+                            {item.name}
+                            <span class="hover-underline"></span>
+                        </a>
+                    {/each}
+                </div>
+
+                <div class="nav-controls">
+                    <button
+                        class="mobile-toggle"
+                        on:click={() => (mobileMenuOpen = !mobileMenuOpen)}
+                        aria-label="Menu"
+                        aria-expanded={mobileMenuOpen}
                     >
-                        {item.name}
-                        <span class="hover-underline"></span>
-                    </a>
-                {/each}
-            </div>
-
-            <div class="nav-controls">
-                <button
-                    class="mobile-toggle"
-                    on:click={() => (mobileMenuOpen = !mobileMenuOpen)}
-                    aria-label="Menu"
-                    aria-expanded={mobileMenuOpen}
-                >
-                    {mobileMenuOpen ? "✕" : "☰"}
-                </button>
-                <button on:click={toggleDarkMode} class="theme-toggle" aria-label="Toggle dark mode">
-                    {darkMode ? '☀️' : '🌙'}
-                </button>
-            </div>
-        </div>
-
-        {#if mobileMenuOpen}
-            <div class="mobile-menu">
-                {#each navItems as item}
-                    <a
-                        href={item.href}
-                        class:active={activeSection === item.name.toLowerCase() || $page.url.pathname === item.href}
+                        {mobileMenuOpen ? "✕" : "☰"}
+                    </button>
+                    <button
+                        on:click={toggleDarkMode}
+                        class="theme-toggle"
+                        aria-label="Toggle dark mode"
                     >
-                        {item.name}
-                    </a>
-                {/each}
+                        {darkMode ? "☀️" : "🌙"}
+                    </button>
+                </div>
             </div>
-        {/if}
-    </nav>
 
-    <main in:fade={{ duration: 200 }}>
-        <slot />
-    </main>
+            {#if mobileMenuOpen}
+                <div class="mobile-menu">
+                    {#each navItems as item}
+                        <a
+                            href={item.href}
+                            class:active={activeSection ===
+                                item.name.toLowerCase() ||
+                                $page.url.pathname === item.href}
+                        >
+                            {item.name}
+                        </a>
+                    {/each}
+                </div>
+            {/if}
+        </nav>
 
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-divider"></div>
-            <p>&copy; {new Date().getFullYear()} Jeffrey Huang. All rights reserved.</p>
-        </div>
-    </footer>
+        <main in:fade={{ duration: 200 }}>
+            <slot />
+        </main>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-divider"></div>
+                <p>
+                    &copy; {new Date().getFullYear()} Jeffrey Huang. All rights reserved.
+                </p>
+            </div>
+        </footer>
+    </div>
 {/if}
 
 <style>
+    .layout-container {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
     /* Layout Structure */
     main {
         flex: 1;
-        padding: 2rem 1rem;
+        padding: 2rem min(5vw, 3rem);
+        width: 100%;
         max-width: 1200px;
         margin: 0 auto;
-        width: 100%;
+        box-sizing: border-box;
     }
 
     /* Navbar Styles */
     .navbar {
-        background: var(--bg);
-        border-bottom: 1px solid var(--border);
         position: sticky;
         top: 0;
-        z-index: 100;
+        z-index: 1000;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
         transition: all 0.3s ease;
+        width: 100%;
     }
 
     .navbar.scrolled {
         background: rgba(var(--bg-rgb), 0.95);
         backdrop-filter: blur(5px);
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
 
     .nav-container {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 1rem;
+        padding: 1rem min(5vw, 3rem); /* Match main content padding */
+        width: 100%;
         max-width: 1200px;
         margin: 0 auto;
+        box-sizing: border-box;
     }
 
     .logo {
@@ -258,7 +286,7 @@
     .mobile-menu a {
         text-decoration: none;
         color: var(--dark);
-        padding: 0.5rem 0;
+        padding: 0.5rem 1rem;
     }
 
     /* Footer Styles */
@@ -273,9 +301,22 @@
 
     .footer-divider {
         height: 1px;
-        background: linear-gradient(90deg, transparent, var(--primary), transparent);
+        background: linear-gradient(
+            90deg,
+            transparent,
+            var(--primary),
+            transparent
+        );
         margin: 0 auto 1.5rem;
-        max-width: 200px;
+        width: 80%;
+    }
+
+    .footer-content {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 min(5vw, 3rem); /* Match main content padding */
+        box-sizing: border-box;
     }
 
     /* Loading Animation */
@@ -301,7 +342,9 @@
     }
 
     @keyframes spin {
-        to { transform: rotate(360deg); }
+        to {
+            transform: rotate(360deg);
+        }
     }
 
     /* Responsive Behavior */
@@ -337,11 +380,21 @@
         }
 
         main {
-            padding: 1.5rem 1rem;
+            padding: 1.5rem min(4vw, 2rem);
+        }
+
+        .nav-container {
+            padding: 1rem min(4vw, 2rem);
         }
 
         .footer {
             padding: 1.5rem 1rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        main {
+            padding: 1rem min(3vw, 1.5rem);
         }
     }
 </style>

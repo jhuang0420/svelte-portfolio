@@ -1,4 +1,5 @@
 import type { PageLoad } from './$types';
+import prj1 from "$lib/images/project.jpg"
 
 interface Project {
   title: string;
@@ -17,7 +18,7 @@ export const load: PageLoad = async () => {
       technologies: ["SvelteKit", "TypeScript", "CSS"],
       link: "/",
       github: "https://github.com/yourusername/portfolio",
-      image: "/portfolio-screenshot.jpg"
+      image: prj1,
     },
     {
       title: "E-commerce Platform",

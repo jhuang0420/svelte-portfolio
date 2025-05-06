@@ -12,101 +12,115 @@
     let isSubmitting = false;
 
     $: isFormValid = name && email && message && email.includes("@");
+    $: formErrors = form && 'errors' in form ? form.errors : undefined;
 </script>
 
 <div class="contact-page">
-    <section class="contact-header">
-        <h1>Get In Touch</h1>
+    <section class="contact-header" aria-labelledby="contact-heading">
+        <h1 id="contact-heading">Get In Touch</h1>
         <p class="subtitle">
-            Have a question or want to work together? Send me a message and I'll
-            get back to you as soon as possible.
+            Have a question or want to collaborate? I'll respond within 24 hours.
         </p>
     </section>
 
     <div class="contact-container">
-        <form
-            class="contact-form"
-            method="POST"
-            use:enhance={() => {
-                isSubmitting = true;
-                return async ({ result }) => {
-                    if (result.type === "success") {
-                        toast.success("Message sent successfully!");
-                        name = "";
-                        email = "";
-                        message = "";
-                    } else if (result.type === "error") {
-                        toast.error(
-                            "Failed to send message. Please try again.",
-                        );
-                    }
-                    isSubmitting = false;
-                };
-            }}
-        >
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    bind:value={name}
-                    required
-                    aria-describedby="name-error"
-                />
-                {#if form?.errors?.name}
-                    <small id="name-error" class="error-message"
-                        >{form.errors.name}</small
-                    >
-                {/if}
-            </div>
-
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    bind:value={email}
-                    required
-                    aria-describedby="email-error"
-                />
-                {#if form?.errors?.email}
-                    <small id="email-error" class="error-message"
-                        >{form.errors.email}</small
-                    >
-                {/if}
-            </div>
-
-            <div class="form-group">
-                <label for="message">Message</label>
-                <textarea
-                    id="message"
-                    name="message"
-                    bind:value={message}
-                    rows="5"
-                    required
-                    aria-describedby="message-error"
-                ></textarea>
-                {#if form?.errors?.message}
-                    <small id="message-error" class="error-message"
-                        >{form.errors.message}</small
-                    >
-                {/if}
-            </div>
-
-            <button
-                type="submit"
-                class="button primary"
-                disabled={!isFormValid || isSubmitting}
-                aria-busy={isSubmitting}
+        <section class="contact-form-section" aria-labelledby="form-heading">
+            <h2 id="form-heading" class="visually-hidden">Contact Form</h2>
+            <form
+                class="contact-form"
+                method="POST"
+                use:enhance={() => {
+                    isSubmitting = true;
+                    return async ({ result }) => {
+                        if (result.type === "success") {
+                            toast.success("Message sent successfully!");
+                            name = "";
+                            email = "";
+                            message = "";
+                        } else if (result.type === "error") {
+                            toast.error("Failed to send message. Please try again.");
+                        }
+                        isSubmitting = false;
+                    };
+                }}
             >
-                {isSubmitting ? "Sending..." : "Send Message"}
-            </button>
-        </form>
+                {#if formErrors?.server}
+                    <div class="server-error" role="alert">
+                        {formErrors?.server}
+                    </div>
+                {/if}
 
-        <div class="contact-info">
-            <h2>Other Ways to Connect</h2>
+                <div class="form-group">
+                    <label for="name">Name <span class="required">*</span></label>
+                    <input
+                        id="name"
+                        name="name"
+                        type="text"
+                        bind:value={name}
+                        required
+                        aria-required="true"
+                        aria-invalid={formErrors?.name ? 'true' : 'false'}
+                        aria-describedby={formErrors?.name ? 'name-error' : undefined}
+                    />
+                    {#if formErrors?.name}
+                        <small id="name-error" class="error-message" role="alert">
+                            {formErrors?.name}
+                        </small>
+                    {/if}
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email <span class="required">*</span></label>
+                    <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        bind:value={email}
+                        required
+                        aria-required="true"
+                        aria-invalid={formErrors?.email ? 'true' : 'false'}
+                        aria-describedby={formErrors?.email ? 'email-error' : undefined}
+                    />
+                    {#if formErrors?.email}
+                        <small id="email-error" class="error-message" role="alert">
+                            {formErrors.email}
+                        </small>
+                    {/if}
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message <span class="required">*</span></label>
+                    <textarea
+                        id="message"
+                        name="message"
+                        bind:value={message}
+                        rows="6"
+                        required
+                        aria-required="true"
+                        aria-invalid={formErrors?.message ? 'true' : 'false'}
+                        aria-describedby={formErrors?.message ? 'message-error' : undefined}
+                    ></textarea>
+                    {#if formErrors?.message}
+                        <small id="message-error" class="error-message" role="alert">
+                            {formErrors?.message}
+                        </small>
+                    {/if}
+                </div>
+
+                <button
+                    type="submit"
+                    class="button primary"
+                    disabled={!isFormValid || isSubmitting}
+                    aria-busy={isSubmitting}
+                >
+                    {isSubmitting ? "Sending..." : "Send Message"}
+        
+                </button>
+            </form>
+        </section>
+
+        <aside class="contact-info" aria-labelledby="connect-heading">
+            <h2 id="connect-heading">Other Ways to Connect</h2>
             <div class="contact-methods">
                 <a href="mailto:jhuang0420@gmail.com" class="contact-method">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -121,6 +135,8 @@
                 <a
                     href="https://www.linkedin.com/in/jeffrey-huang-107288214/"
                     class="contact-method"
+                    target="_blank"
+                    rel="noopener noreferrer"
                 >
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                         <path
@@ -132,8 +148,10 @@
                 </a>
 
                 <a
-                    href="https://github.com/https://github.com/jhuang0420"
+                    href="https://github.com/jhuang0420"
                     class="contact-method"
+                    target="_blank"
+                    rel="noopener noreferrer"
                 >
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                         <path
@@ -144,17 +162,19 @@
                     <span>GitHub Profile</span>
                 </a>
             </div>
-        </div>
+        </aside>
     </div>
 </div>
 
 <style>
+    /* Base Styles */
     .contact-page {
         max-width: 1200px;
         margin: 0 auto;
         padding: 2rem 1rem;
     }
 
+    /* Header */
     .contact-header {
         text-align: center;
         margin-bottom: 3rem;
@@ -173,6 +193,7 @@
         margin: 0 auto;
     }
 
+    /* Layout */
     .contact-container {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -180,6 +201,7 @@
         margin-top: 2rem;
     }
 
+    /* Form Styles */
     .contact-form {
         display: flex;
         flex-direction: column;
@@ -197,6 +219,10 @@
         color: var(--text);
     }
 
+    .required {
+        color: var(--error);
+    }
+
     input,
     textarea {
         padding: 0.75rem;
@@ -205,26 +231,37 @@
         background: var(--input-bg);
         color: var(--text);
         font-family: inherit;
-        transition: border-color 0.2s ease;
+        font-size: 1rem;
+        transition: all 0.2s ease;
     }
 
     input:focus,
     textarea:focus {
         outline: none;
         border-color: var(--primary);
-        box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.1);
+        box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
     }
 
     textarea {
         resize: vertical;
-        min-height: 120px;
+        min-height: 150px;
     }
 
-    .error-message {
+    /* Error Handling */
+    .error-message,
+    .server-error {
         color: var(--error);
         font-size: 0.85rem;
     }
 
+    .server-error {
+        background: rgba(var(--error-rgb), 0.1);
+        padding: 1rem;
+        border-radius: 6px;
+        margin-bottom: 1rem;
+    }
+
+    /* Contact Info */
     .contact-info {
         padding: 1rem;
     }
@@ -238,7 +275,7 @@
     .contact-methods {
         display: flex;
         flex-direction: column;
-        gap: 1.5rem;
+        gap: 1rem;
     }
 
     .contact-method {
@@ -247,7 +284,7 @@
         gap: 1rem;
         color: var(--text);
         text-decoration: none;
-        transition: color 0.2s ease;
+        transition: all 0.2s ease;
         padding: 0.75rem;
         border-radius: 6px;
     }
@@ -255,6 +292,7 @@
     .contact-method:hover {
         color: var(--primary);
         background: var(--light);
+        transform: translateX(4px);
     }
 
     .contact-method svg {
@@ -263,6 +301,36 @@
         flex-shrink: 0;
     }
 
+    /* Button Styles */
+    .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        border: none;
+        font-size: 1rem;
+    }
+
+    .button.primary {
+        background: var(--primary);
+        color: var(--text-inverse);
+    }
+
+    .button.primary:hover:not(:disabled) {
+        background: var(--primary-hover);
+    }
+
+    .button.primary:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+
+    /* Loading Spinner */
     button[aria-busy="true"] {
         position: relative;
         pointer-events: none;
@@ -289,7 +357,20 @@
         }
     }
 
-    /* Dark mode adjustments */
+    /* Accessibility */
+    .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+    }
+
+    /* Dark Mode */
     :global(.dark) {
         .contact-method:hover {
             background: rgba(var(--primary-rgb), 0.1);
@@ -301,7 +382,7 @@
         }
     }
 
-    /* Responsive layout */
+    /* Responsive Design */
     @media (max-width: 768px) {
         .contact-container {
             grid-template-columns: 1fr;
@@ -309,6 +390,20 @@
 
         .contact-header h1 {
             font-size: 2rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .contact-page {
+            padding: 1.5rem 1rem;
+        }
+
+        .contact-header {
+            margin-bottom: 2rem;
+        }
+
+        textarea {
+            min-height: 120px;
         }
     }
 </style>

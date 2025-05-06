@@ -14,7 +14,7 @@
   --space-sm: 0.5rem;
   --space-md: 1rem;
   --space-lg: 1.5rem;
-  
+
   /* Typography */
   --font-base: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'SF Mono', monospace;
@@ -79,4 +79,28 @@ body {
   top: 0;
 }
 
+/* Splash screen styles */
+.splash {
+  position: fixed;
+  inset: 0;
+  background: var(--bg, #ffffff);
+  display: grid;
+  place-items: center;
+  z-index: 9999;
+  transition: opacity 0.3s ease;
+}
 
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid var(--primary, #3a86ff);
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
