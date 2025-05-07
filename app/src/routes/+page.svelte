@@ -238,8 +238,7 @@
 
     /* Project Section */
     .featured-project {
-        background: linear-gradient(135deg, var(--light) 0%, var(--bg) 100%);
-
+        background: transparent;
         padding: 3rem 0;
         border-radius: 12px;
     }
@@ -257,7 +256,7 @@
         padding: 2rem;
     }
 
-    .project-image {        
+    .project-image {
         flex: 2;
         display: flex;
         align-items: center;
@@ -350,6 +349,60 @@
         }
     }
 
+    /* Glowing Divider Configuration */
+    .hero,
+    .skills,
+    .featured-project {
+        position: relative;
+        padding-bottom: 5rem;
+    }
+
+    /* Divider for sections that should have it */
+    .hero::after,
+    .skills::after,
+    .featured-project::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 1000px;
+        height: 2px;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            var(--primary),
+            transparent
+        );
+        animation: glow-pulse 3s ease-in-out infinite;
+    }
+
+    /* No divider for CTA section */
+    .cta {
+        position: relative;
+        padding-bottom: 3rem;
+    }
+    .cta::after {
+        display: none;
+    }
+
+    @keyframes glow-pulse {
+        0%,
+        100% {
+            box-shadow:
+                0 0 5px var(--primary),
+                0 0 20px var(--primary);
+            opacity: 0.7;
+        }
+        50% {
+            box-shadow:
+                0 0 15px var(--primary),
+                0 0 30px var(--primary);
+            opacity: 1;
+        }
+    }
+
     /* Responsive Design */
     @media (max-width: 800px) {
         .hero-content {
@@ -378,7 +431,8 @@
         .project-image {
             order: 1;
             margin-left: 2rem;
-            margin-right: 2rem ;
+            margin-right: 2rem;
+            margin-bottom: 0rem;
             max-width: 450px;
         }
 

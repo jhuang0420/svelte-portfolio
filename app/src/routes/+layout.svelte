@@ -21,7 +21,7 @@
         { name: "Contact", href: "/contact" },
     ];
 
-    // Toggle dark mode - corrected version
+    // Toggle dark mode
     function toggleDarkMode() {
         darkMode = !darkMode;
         if (typeof document !== "undefined") {
@@ -30,11 +30,10 @@
         }
     }
 
-    // Initialize states - single onMount
+    // Initialize states
     onMount(() => {
         // Load saved theme preference
         if (typeof window !== "undefined") {
-            // Check localStorage
             darkMode = localStorage.getItem("darkMode") === "true";
             document.documentElement.classList.toggle("dark", darkMode);
 
@@ -67,11 +66,12 @@
     // Close mobile menu on navigation
     afterNavigate(() => (mobileMenuOpen = false));
 
-    // bubble logic
+    // Bubble configuration
     let bubbles = Array.from({ length: 12 }, () => ({
-        size: Math.random() * 20 + 20, // 20–40px
-        left: Math.random() * 100, // 0%–100%
-        duration: Math.random() * 10 + 15, // 15–25s
+        size: Math.random() * 20 + 20,
+        left: Math.random() * 100,
+        duration: Math.random() * 10 + 15,
+        opacity: Math.random() * 0.5 + 0.3,
     }));
 </script>
 
@@ -88,7 +88,14 @@
             {#each bubbles as bubble, i}
                 <div
                     class="bubble"
-                    style={`width:${bubble.size}px; height:${bubble.size}px; left:${bubble.left}%; animation-duration:${bubble.duration}s; animation-delay:-${Math.random() * bubble.duration}s;`}
+                    style={`
+                        width:${bubble.size}px;
+                        height:${bubble.size}px;
+                        left:${bubble.left}%;
+                        animation-duration:${bubble.duration}s;
+                        animation-delay:-${Math.random() * bubble.duration}s;
+                        opacity:${bubble.opacity};
+                    `}
                 ></div>
             {/each}
         </div>
@@ -162,13 +169,14 @@
 {/if}
 
 <style>
+    /* Layout Structure */
     .layout-container {
         display: flex;
         flex-direction: column;
         min-height: 100vh;
+        position: relative;
     }
 
-    /* Layout Structure */
     main {
         flex: 1;
         padding: 2rem min(5vw, 3rem);
@@ -199,7 +207,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 1rem min(5vw, 3rem); /* Match main content padding */
+        padding: 1rem min(5vw, 3rem);
         width: 100%;
         max-width: 1200px;
         margin: 0 auto;
@@ -209,7 +217,7 @@
     .logo {
         font-weight: bold;
         font-size: 1.25rem;
-        color: var(--dark);
+        color: var(--text);
         text-decoration: none;
         white-space: nowrap;
         margin-right: 1rem;
@@ -224,7 +232,7 @@
 
     .nav-links a {
         text-decoration: none;
-        color: var(--dark);
+        color: var(--text);
         white-space: nowrap;
         font-size: clamp(0.9rem, 1.5vw, 1rem);
         padding: 0.25rem 0;
@@ -272,7 +280,7 @@
         font-size: 1.25rem;
         cursor: pointer;
         padding: 0.5rem;
-        color: var(--dark);
+        color: var(--text);
         transition: transform 0.3s ease;
     }
 
@@ -287,7 +295,7 @@
         border: none;
         font-size: 1.5rem;
         cursor: pointer;
-        color: var(--dark);
+        color: var(--text);
     }
 
     .mobile-menu {
@@ -301,8 +309,13 @@
 
     .mobile-menu a {
         text-decoration: none;
-        color: var(--dark);
+        color: var(--text);
         padding: 0.5rem 1rem;
+        transition: color 0.2s ease;
+    }
+
+    .mobile-menu a:hover {
+        color: var(--primary);
     }
 
     /* Footer Styles */
@@ -310,7 +323,7 @@
         background: transparent;
         padding: 2rem 1rem;
         text-align: center;
-        color: var(--dark);
+        color: var(--text);
         font-size: 0.9rem;
         margin-top: auto;
     }
@@ -325,13 +338,14 @@
         );
         margin: 0 auto 1.5rem;
         width: 80%;
+        max-width: 800px;
     }
 
     .footer-content {
         width: 100%;
         max-width: 1200px;
         margin: 0 auto;
-        padding: 0 min(5vw, 3rem); /* Match main content padding */
+        padding: 0 min(5vw, 3rem);
         box-sizing: border-box;
     }
 
@@ -351,7 +365,7 @@
     .spinner {
         width: 50px;
         height: 50px;
-        border: 3px solid rgba(var(--dark-rgb), 0.1);
+        border: 3px solid rgba(var(--text-rgb), 0.1);
         border-radius: 50%;
         border-top-color: var(--primary);
         animation: spin 1s ease-in-out infinite;
@@ -360,6 +374,51 @@
     @keyframes spin {
         to {
             transform: rotate(360deg);
+        }
+    }
+
+    /* Bubble Background */
+    .bubble-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: -1;
+        pointer-events: none;
+    }
+
+    .bubble {
+        position: absolute;
+        bottom: -60px;
+        border-radius: 50%;
+        animation-name: floatBubble;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+    }
+
+    /* Dark Mode Bubbles */
+    :root.dark .bubble {
+        background: rgba(172, 136, 245, 0.2);
+        filter: blur(7px);
+    }
+
+    /* Light Mode Bubbles */
+    :root:not(.dark) .bubble {
+        background: rgba(99, 148, 240, 0.421);
+        filter: blur(6px);
+    }
+
+    @keyframes floatBubble {
+        0% {
+            transform: translateY(0) scale(1);
+        }
+        50% {
+            transform: translateY(-50vh) scale(1.2);
+        }
+        100% {
+            transform: translateY(-100vh) scale(1);
         }
     }
 
@@ -412,46 +471,9 @@
         main {
             padding: 1rem min(3vw, 1.5rem);
         }
-    }
 
-    /* 🌌 Bubble Background for Dark Mode */
-    .bubble-background {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        z-index: -1;
-        pointer-events: none;
-        opacity: 0;
-        transition: opacity 0.5s ease;
-    }
-
-    :root.dark .bubble-background {
-        opacity: 1;
-    }
-
-    .bubble {
-        position: absolute;
-        bottom: -60px;
-        background: rgba(172, 136, 245, 0.284);
-        border-radius: 50%;
-        filter: blur(7px);
-        animation-name: floatBubble;
-        animation-timing-function: linear;
-        animation-iteration-count: infinite;
-    }
-
-    @keyframes floatBubble {
-        0% {
-            transform: translateY(0) scale(1);
-        }
-        50% {
-            transform: translateY(-50vh) scale(1.2);
-        }
-        100% {
-            transform: translateY(-100vh) scale(1);
+        .footer-divider {
+            width: 90%;
         }
     }
 </style>

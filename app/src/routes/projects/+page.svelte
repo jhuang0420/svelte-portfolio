@@ -1,6 +1,11 @@
 <script lang="ts">
   import type { PageData } from "./$types";
   export let data: PageData;
+
+  function handleImageLoad(e: Event) {
+    const target = e.currentTarget as HTMLImageElement;
+    target.parentElement?.classList.add("loaded");
+  }
 </script>
 
 <div class="projects-page">
@@ -14,7 +19,13 @@
       <article class="project-card">
         {#if project.image}
           <div class="project-bg-image">
-            <img src={project.image} alt="" aria-hidden="true" loading="lazy" />
+            <img
+              src={project.image}
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              on:load={handleImageLoad}
+            />
           </div>
         {/if}
 
@@ -62,21 +73,35 @@
 
 <style>
   .projects-page {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 0rem 1rem 1rem 1rem;
+    padding: 2rem 1.5rem 3rem;
+    background-image: radial-gradient(
+        circle at 10% 20%,
+        rgba(var(--primary-rgb), 0.05) 0%,
+        transparent 20%
+      ),
+      radial-gradient(
+        circle at 90% 80%,
+        rgba(var(--primary-rgb), 0.05) 0%,
+        transparent 20%
+      );
+    background-size: 100% 100%;
   }
 
   .projects-header {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
   }
 
   .projects-header h1 {
-    font-size: 2.5rem;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    color: var(--text);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    background: linear-gradient(to right, var(--primary), #3b82f6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin: 0.5rem 0 1rem;
   }
 
   .subtitle {
@@ -84,23 +109,33 @@
     color: var(--text-secondary);
     max-width: 600px;
     margin: 0 auto;
+    line-height: 1.6;
   }
 
   .projects-grid {
     display: grid;
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2.5rem;
   }
 
   .project-card {
     position: relative;
     border-radius: 12px;
+    box-shadow: 0 0 15px rgba(130, 156, 240, 0.928);
+    
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    backdrop-filter: blur(16px);
+    background: rgba(var(--bg-rgb), 0.6);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
   }
 
   .project-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
+    box-shadow:
+      0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    border-color: rgba(var(--primary-rgb), 0.4);
   }
 
   .project-bg-image {
@@ -108,14 +143,36 @@
     width: 100%;
     height: 100%;
     z-index: 1;
+    will-change: transform;
+    transition: transform 0.5s ease-out;
   }
 
   .project-bg-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: blur(8px) brightness(0.7);
-    transform: scale(1.05); /* Prevents blur edge artifacts */
+    filter: blur(8px) brightness(0.6);
+    transform: scale(1.05);
+  }
+
+  .project-card:hover .project-bg-image {
+    transform: scale(1.05) translateY(-5px);
+  }
+
+  .project-bg-image::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      rgba(var(--bg-rgb), 0) 0%,
+      rgba(var(--bg-rgb), 0.3) 50%,
+      rgba(var(--bg-rgb), 0) 100%
+    );
+    z-index: 1;
   }
 
   .project-content-overlay {
@@ -125,10 +182,9 @@
     display: flex;
     align-items: center;
     background: linear-gradient(
-      to right,
+      135deg,
       rgba(var(--bg-rgb), 0.9) 0%,
-      rgba(var(--bg-rgb), 0.7) 50%,
-      rgba(var(--bg-rgb), 0.4) 100%
+      rgba(var(--bg-rgb), 0.5) 100%
     );
   }
 
@@ -139,16 +195,18 @@
   }
 
   .project-card h2 {
-    font-size: 1.8rem;
-    margin-top: 0.5rem;
-    margin-bottom: 1rem;
+    font-size: clamp(1.5rem, 2vw, 1.8rem);
+    font-weight: 600;
+    margin: 0.5rem 0 1.25rem;
     color: var(--text);
+    line-height: 1.3;
   }
 
   .project-description {
     margin-bottom: 1.5rem;
     color: var(--text-secondary);
     line-height: 1.6;
+    font-size: 0.95rem;
   }
 
   .tech-tags {
@@ -159,12 +217,21 @@
   }
 
   .tech-tag {
-    background: var(--primary);
-    color: var(--text-inverse);
-    padding: 0.25rem 0.75rem;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    backdrop-filter: blur(5px);
+    background: rgba(var(--primary-rgb), 0.15);
+    color: var(--primary);
+    border: 1px solid rgba(var(--primary-rgb), 0.3);
+    padding: 0.35rem 0.2rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(4px);
+  }
+
+  .tech-tag:hover {
+    background: rgba(var(--primary-rgb), 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 0 10px rgba(var(--primary-rgb), 0.2);
   }
 
   .project-links {
@@ -182,6 +249,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    overflow: hidden;
   }
 
   .project-links a.button.primary {
@@ -192,6 +261,26 @@
   .project-links a.button.primary:hover {
     background: var(--primary-hover);
     transform: translateY(-2px);
+  }
+
+  .project-links a.button.primary::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transition: all 0.6s ease;
+  }
+
+  .project-links a.button.primary:hover::after {
+    left: 100%;
   }
 
   .project-links a.button.secondary {
@@ -213,22 +302,25 @@
 
   /* Dark mode adjustments */
   :global(.dark) {
-    .project-bg-image img {
-      filter: blur(8px) brightness(0.4);
-    }
-
     .project-card {
       border-radius: 12px;
       box-shadow: 0 0 10px rgb(255, 255, 255);
     }
 
+    .project-bg-image img {
+      filter: blur(4px) brightness(0.4) contrast(1);
+    }
+
     .project-content-overlay {
       background: linear-gradient(
-        to right,
-        rgba(var(--dark-bg-rgb), 0.9) 0%,
-        rgba(var(--dark-bg-rgb), 0.7) 50%,
-        rgba(var(--dark-bg-rgb), 0.4) 100%
+        135deg,
+        rgba(23, 23, 23, 0.9) 0%,
+        rgba(23, 23, 23, 0.6) 100%
       );
+    }
+
+    .tech-tag {
+      border-color: rgba(var(--primary-rgb), 0.5);
     }
 
     .project-links a.button.secondary {
@@ -242,9 +334,24 @@
 
   /* Responsive layout */
   @media (max-width: 900px) {
+    .projects-page {
+      padding: 1.5rem 1.25rem 2.5rem;
+    }
+
     .project-content {
       max-width: 70%;
       padding: 2rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .projects-header {
+      margin-bottom: 3rem;
     }
   }
 
