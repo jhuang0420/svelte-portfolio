@@ -368,14 +368,13 @@
         transform: translateX(-50%);
         width: 90%;
         max-width: 1000px;
-        height: 2px;
+        height: 1px;
         background: linear-gradient(
             90deg,
             transparent,
             var(--primary),
             transparent
         );
-        animation: glow-pulse 3s ease-in-out infinite;
     }
 
     /* No divider for CTA section */
@@ -387,21 +386,6 @@
         display: none;
     }
 
-    @keyframes glow-pulse {
-        0%,
-        100% {
-            box-shadow:
-                0 0 5px var(--primary),
-                0 0 20px var(--primary);
-            opacity: 0.7;
-        }
-        50% {
-            box-shadow:
-                0 0 15px var(--primary),
-                0 0 30px var(--primary);
-            opacity: 1;
-        }
-    }
 
     /* Responsive Design */
     @media (max-width: 800px) {
