@@ -25,6 +25,8 @@
   --card-bg: #ffffff;
   --button-secondary-bg: #ffffff;
   --button-secondary-hover: #f0f0f0;
+
+  
 }
 
 .dark {
@@ -49,6 +51,8 @@ body {
   height: 100%;
   overflow-x: hidden;
   margin: 0;
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
 }
 
 /* Base Styles */

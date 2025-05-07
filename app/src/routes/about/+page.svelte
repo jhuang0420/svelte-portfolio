@@ -135,11 +135,20 @@
 
   .bio-text {
     flex: 1;
+    max-height: 450px;
+    overflow-y: scroll;
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For IE/Edge */
+  }
+  
+  .bio-text::-webkit-scrollbar {
+    display: none;
   }
 
   .bio-text h2 {
     font-size: 1.8rem;
-    margin-bottom: 1.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
     color: var(--text);
   }
 
@@ -226,6 +235,10 @@
 
     .skills-grid {
       grid-template-columns: 1fr;
+    }
+
+    .bio-text {
+      max-height: fit-content;
     }
   }
 </style>

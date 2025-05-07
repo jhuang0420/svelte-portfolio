@@ -2,11 +2,11 @@
 import { fail } from '@sveltejs/kit';
 import type { Actions } from '@sveltejs/kit';
 import nodemailer from 'nodemailer';
-import { GMAIL_USER, GMAIL_APP_PASSWORD, YOUR_PERSONAL_EMAIL } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 
 export const actions: Actions = {
     default: async ({ request }) => {
-
+        const { GMAIL_USER, GMAIL_APP_PASSWORD, YOUR_PERSONAL_EMAIL } = env;
         // Validate environment configuration
         if (!GMAIL_USER || !GMAIL_APP_PASSWORD || !YOUR_PERSONAL_EMAIL) {
             console.error('Missing email configuration:', {
