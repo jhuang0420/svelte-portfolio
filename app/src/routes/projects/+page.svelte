@@ -76,17 +76,6 @@
     max-width: 1400px;
     margin: 0 auto;
     padding: 2rem 1.5rem 3rem;
-    background-image: radial-gradient(
-        circle at 10% 20%,
-        rgba(var(--primary-rgb), 0.05) 0%,
-        transparent 20%
-      ),
-      radial-gradient(
-        circle at 90% 80%,
-        rgba(var(--primary-rgb), 0.05) 0%,
-        transparent 20%
-      );
-    background-size: 100% 100%;
   }
 
   .projects-header {
@@ -97,7 +86,7 @@
   .projects-header h1 {
     font-size: clamp(2rem, 5vw, 3rem);
     font-weight: 700;
-    background: linear-gradient(to right, var(--primary), #3b82f6);
+    background: linear-gradient(to right, var(--primary), #4069ab);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -181,11 +170,7 @@
     height: 100%;
     display: flex;
     align-items: center;
-    background: linear-gradient(
-      135deg,
-      rgba(var(--bg-rgb), 0.9) 0%,
-      rgba(var(--bg-rgb), 0.5) 100%
-    );
+    background:rgba(255, 255, 255, 0.983);
   }
 
   .project-content {
