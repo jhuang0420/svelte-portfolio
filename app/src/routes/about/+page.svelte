@@ -23,15 +23,22 @@
         <div class="bio-text">
           <h2>Background</h2>
           <p>
-            Computer Science student passionate about building intuitive
-            interfaces and solving complex problems. Currently specializing in
-            web development and machine learning with experience across the full
-            stack.
+            I'm an eager Software Engineer and Data Scientist with an interest
+            in building full-stack applications and deriving insights from big
+            data. I believe the best learning comes from diving head-first into
+            projects - whether that's deploying a machine learning model to
+            production or optimizing a React component's rendering performance.
           </p>
           <p>
-            When I'm not coding, you can find me contributing to open-source
-            projects, learning new technologies, or exploring the intersection
-            of art and technology.
+            When I'm not on the computer, I enjoy: cooking/baking, digital
+            photography (portrait + street), brewing coffee (currently trying
+            darker roasts), & vintage thrifting (small and unique charms).
+          </p>
+          <p>
+            I approach both technology and life with the same philosophy: dive
+            deep, iterate often, and stay curious. Currently seeking
+            opportunities where I can apply this mindset to learn and build
+            impactful solutions at the intersection of software and data.
           </p>
         </div>
       </div>
@@ -39,33 +46,47 @@
       <section class="skills-section">
         <h2>Technical Skills</h2>
         <div class="skills-grid">
+          <!-- Software Engineering -->
           <div class="skill-category">
-            <h3>Programming Languages</h3>
+            <h3>Software Engineering</h3>
             <ul>
-              <li>JavaScript/TypeScript</li>
-              <li>Python</li>
-              <li>Java</li>
-              <li>C++</li>
+              <li>
+                <strong>Languages:</strong> Python, JavaScript/TypeScript, Java,
+                C/C++, SQL
+              </li>
+              <li>
+                <strong>Web Development:</strong> Svelte/SvelteKit, React, Node.js,
+                Flask
+              </li>
+              <li><strong>Databases:</strong> PostgreSQL, MongoDB</li>
             </ul>
           </div>
 
+          <!-- Data Science -->
           <div class="skill-category">
-            <h3>Frameworks & Libraries</h3>
+            <h3>Data Science & ML</h3>
             <ul>
-              <li>Svelte/SvelteKit</li>
-              <li>React/Next.js</li>
-              <li>Node.js</li>
-              <li>TensorFlow</li>
+              <li><strong>Data Analysis:</strong> Pandas, NumPy, SciPy, R</li>
+              <li>
+                <strong>Machine Learning:</strong> TensorFlow, PyTorch, Scikit-learn
+              </li>
+              <li>
+                <strong>Data Visualization:</strong> Matplotlib, Seaborn, Plotly,
+                Tableau
+              </li>
+              <li><strong>NLP/CV:</strong> Transformers, OpenCV, NLTK</li>
             </ul>
           </div>
 
+          <!-- Tools & Methodologies -->
           <div class="skill-category">
-            <h3>Tools & Technologies</h3>
+            <h3>Tools & Methodologies</h3>
             <ul>
-              <li>Git & GitHub</li>
-              <li>Docker</li>
-              <li>PostgreSQL</li>
-              <li>AWS</li>
+              <li><strong>Version Control:</strong> Git, GitHub</li>
+              <li>
+                <strong>IDEs:</strong> VS Code, PyCharm, Jupyter Notebooks
+              </li>
+              <li><strong>Other:</strong> Linux, Bash, LaTeX</li>
             </ul>
           </div>
         </div>

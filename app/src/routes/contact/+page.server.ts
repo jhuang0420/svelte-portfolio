@@ -2,15 +2,18 @@
 import { fail } from '@sveltejs/kit';
 import type { Actions } from '@sveltejs/kit';
 import nodemailer from 'nodemailer';
+import { GMAIL_USER, GMAIL_APP_PASSWORD, YOUR_PERSONAL_EMAIL } from '$env/static/private';
 
 export const actions: Actions = {
-    default: async ({ request, locals }) => {
-        // Access environment variables
-        const { GMAIL_USER, GMAIL_APP_PASSWORD, YOUR_PERSONAL_EMAIL } = locals.runtime?.env || process.env;
+    default: async ({ request }) => {
 
         // Validate environment configuration
         if (!GMAIL_USER || !GMAIL_APP_PASSWORD || !YOUR_PERSONAL_EMAIL) {
-            console.error('Missing email configuration');
+            console.error('Missing email configuration:', {
+                GMAIL_USER: !!GMAIL_USER,
+                GMAIL_APP_PASSWORD: !!GMAIL_APP_PASSWORD,
+                YOUR_PERSONAL_EMAIL: !!YOUR_PERSONAL_EMAIL
+            }); 
             return fail(500, {
                 errors: { server: 'Server configuration error' },
                 values: Object.fromEntries(await request.formData())
@@ -49,8 +52,8 @@ export const actions: Actions = {
         // Send email
         try {
             await transporter.sendMail({
-                from: `"Portfolio Contact" <${GMAIL_USER}>`,  // Fixed typo in "Portfolio"
-                to: YOUR_PERSONAL_EMAIL,  // Fixed typo in variable name
+                from: `"Portfolio Contact" <${GMAIL_USER}>`,
+                to: YOUR_PERSONAL_EMAIL,
                 subject: `New message from ${name} (Portfolio)`,
                 text: `From: ${name} <${email}>\n\nMessage:\n${message}`,
                 html: `

@@ -192,10 +192,18 @@
         margin-top: 2rem;
     }
 
+    .hero-image {
+        border-radius: 12px;
+        box-shadow: 0 0 30px rgb(255, 255, 255);
+        max-height: 400px;
+        max-width: 400px;
+    }
+
     .profile-photo {
         border-radius: 12px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        max-width: 100%;
+        max-height: 400px;
+        max-width: 400px;
+        width: 100%;
         height: auto;
     }
 
@@ -326,11 +334,6 @@
     :global(.dark) {
         .hero {
             background: transparent;
-        }
-
-        .hero-image {
-            border-radius: 12px;
-            box-shadow: 0 0 30px rgb(255, 255, 255)
         }
 
         .button.primary:hover {
