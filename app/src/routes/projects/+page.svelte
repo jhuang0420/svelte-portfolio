@@ -64,7 +64,7 @@
   .projects-page {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem 1rem;
+    padding: 0rem 1rem 1rem 1rem;
   }
 
   .projects-header {
@@ -74,6 +74,7 @@
 
   .projects-header h1 {
     font-size: 2.5rem;
+    margin-top: 0.5rem;
     margin-bottom: 0.5rem;
     color: var(--text);
   }

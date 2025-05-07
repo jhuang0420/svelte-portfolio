@@ -99,7 +99,7 @@
   .about-page {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem 1rem;
+    padding: 0rem 1rem 1rem 1rem;
   }
 
   .about-header {
@@ -109,6 +109,7 @@
 
   .about-header h1 {
     font-size: 2.5rem;
+    margin-top: 0.5rem;
     margin-bottom: 0.5rem;
     color: var(--text);
   }
@@ -140,7 +141,7 @@
     scrollbar-width: none; /* For Firefox */
     -ms-overflow-style: none; /* For IE/Edge */
   }
-  
+
   .bio-text::-webkit-scrollbar {
     display: none;
   }
@@ -180,6 +181,7 @@
   .skill-category h3 {
     font-size: 1.2rem;
     margin-bottom: 1rem;
+    margin-top: 0rem;
     color: var(--primary);
   }
 

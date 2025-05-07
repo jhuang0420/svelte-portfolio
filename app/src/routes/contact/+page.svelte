@@ -218,17 +218,19 @@
     .contact-page {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 2rem 1rem;
+        padding: 0rem 1rem 1rem 1rem;
     }
 
     /* Header */
     .contact-header {
         text-align: center;
         margin-bottom: 3rem;
+        
     }
 
     .contact-header h1 {
         font-size: 2.5rem;
+        margin-top: 0.5rem;
         margin-bottom: 0.5rem;
         color: var(--text);
     }

@@ -114,7 +114,7 @@
         display: flex;
         flex-direction: column;
         gap: 4rem;
-        padding-bottom: 4rem;
+        padding-bottom: 2rem;
     }
 
     section {
@@ -225,7 +225,7 @@
         color: var(--text);
         border: 1px solid var(--border);
         border-radius: 8px;
-        padding: 1.5rem;
+        padding: 1.5rem 1.5rem 1rem 1.5rem;
         transition:
             transform 0.2s ease,
             box-shadow 0.2s ease;
@@ -290,7 +290,7 @@
     .cta {
         max-width: 800px;
         margin: 0 auto;
-        padding: 0 2rem;
+        padding: 0 1rem;
         text-align: center;
     }
 
