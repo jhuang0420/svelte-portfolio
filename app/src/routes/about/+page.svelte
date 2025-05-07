@@ -172,7 +172,8 @@
   /* Dark mode adjustments */
   :global(.dark) {
     .profile-image {
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      border-radius: 12px;
+      box-shadow: 0 0 30px rgb(255, 255, 255);
     }
 
     .skill-category {
@@ -182,7 +183,6 @@
 
   /* Responsive design */
   @media (max-width: 800px) {
-   
     .bio-section {
       flex-direction: column;
       gap: 2rem;
@@ -196,7 +196,6 @@
     .about-content {
       margin: 0 1.5rem;
     }
-    
   }
 
   @media (max-width: 600px) {

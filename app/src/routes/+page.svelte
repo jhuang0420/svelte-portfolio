@@ -10,11 +10,12 @@
         <div class="hero-content">
             <div class="hero-text">
                 <h1>Hi, I'm Jeffrey Huang</h1>
-                <p class="subtitle">Computer Science Student & Developer</p>
+                <p class="subtitle">Developer & Problem Solver</p>
                 <p class="description">
-                    Passionate about building intuitive interfaces and solving
-                    complex problems. Currently specializing in web development
-                    and machine learning.
+                    Passionate about uncovering meaningful insights from raw
+                    data. Curious about new technologies from machine learning
+                    and statistical analysis to efficient algorithms and
+                    visualization.
                 </p>
                 <div class="hero-buttons">
                     <a href="/projects" class="button primary">View My Work</a>
@@ -39,15 +40,25 @@
         <div class="skills-grid">
             <div class="skill-card">
                 <h3>Web Development</h3>
-                <p>Svelte, React, JavaScript/TypeScript, HTML/CSS</p>
+                <p>
+                    Svelte, React, JavaScript/TypeScript, HTML/CSS, Flutter,
+                    Figma
+                </p>
             </div>
             <div class="skill-card">
-                <h3>Backend</h3>
-                <p>Node.js, Python, SQL, REST APIs</p>
+                <h3>Backend Development</h3>
+                <p>Node.js, Python, SQL, REST APIs, Flask, MongoDB</p>
             </div>
             <div class="skill-card">
-                <h3>Other</h3>
-                <p>Machine Learning, Data Structures, Algorithms</p>
+                <h3>Data Science & ML</h3>
+                <p>
+                    Pandas, NumPy, Scikit-Learn, TensorFlow, Keras, EDA,
+                    Computer Vision
+                </p>
+            </div>
+            <div class="skill-card">
+                <h3>Languages</h3>
+                <p>Python, C/C++, Java, R, JavaScript/TypeScript, SQL</p>
             </div>
         </div>
     </section>
@@ -142,7 +153,6 @@
     .hero {
         border-radius: 12px;
         padding: 3rem 0;
-        background: linear-gradient(135deg, var(--light) 0%, var(--bg) 100%);
     }
 
     .hero-content {
@@ -232,7 +242,6 @@
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 2rem;
-        
     }
 
     .project-content {
@@ -240,7 +249,7 @@
         padding: 2rem;
     }
 
-    .project-image {
+    .project-image {        
         flex: 2;
         display: flex;
         align-items: center;
@@ -316,7 +325,12 @@
     /* Dark Mode Specific Adjustments */
     :global(.dark) {
         .hero {
-            background: linear-gradient(135deg, var(--dark) 0%, var(--bg) 100%);
+            background: transparent;
+        }
+
+        .hero-image {
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgb(255, 255, 255)
         }
 
         .button.primary:hover {
@@ -360,9 +374,9 @@
 
         .project-image {
             order: 1;
-            margin-bottom: 1rem;
+            margin-left: 2rem;
+            margin-right: 2rem ;
             max-width: 450px;
-            
         }
 
         .project-content {
@@ -382,7 +396,6 @@
             padding: 0.6rem 1.2rem;
             font-size: 0.9rem;
         }
-
     }
 
     @media (max-width: 600px) {

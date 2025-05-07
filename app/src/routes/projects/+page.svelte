@@ -216,6 +216,11 @@
       filter: blur(8px) brightness(0.4);
     }
 
+    .project-card {
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgb(255, 255, 255);
+    }
+
     .project-content-overlay {
       background: linear-gradient(
         to right,
@@ -228,7 +233,7 @@
     .project-links a.button.secondary {
       background: rgba(var(--primary-rgb), 0.2);
     }
-    
+
     .project-links a.button.secondary:hover {
       background: rgba(var(--primary-rgb), 0.3);
     }
@@ -256,7 +261,6 @@
       padding: 0.6rem 1.2rem;
       font-size: 0.9rem;
     }
-    
   }
 
   @media (max-width: 500px) {
@@ -275,6 +279,5 @@
     .project-links {
       flex-direction: column;
     }
-
   }
 </style>

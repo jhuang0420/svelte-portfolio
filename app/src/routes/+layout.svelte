@@ -66,6 +66,13 @@
 
     // Close mobile menu on navigation
     afterNavigate(() => (mobileMenuOpen = false));
+
+    // bubble logic
+    let bubbles = Array.from({ length: 12 }, () => ({
+        size: Math.random() * 20 + 20, // 20–40px
+        left: Math.random() * 100, // 0%–100%
+        duration: Math.random() * 10 + 15, // 15–25s
+    }));
 </script>
 
 {#if isLoading}
@@ -77,6 +84,15 @@
     </div>
 {:else}
     <div class="layout-container">
+        <div class="bubble-background" aria-hidden="true">
+            {#each bubbles as bubble, i}
+                <div
+                    class="bubble"
+                    style={`width:${bubble.size}px; height:${bubble.size}px; left:${bubble.left}%; animation-duration:${bubble.duration}s; animation-delay:-${Math.random() * bubble.duration}s;`}
+                ></div>
+            {/each}
+        </div>
+
         <nav class="navbar" class:scrolled>
             <div class="nav-container">
                 <a href="/" class="logo">JH</a>
@@ -291,7 +307,7 @@
 
     /* Footer Styles */
     .footer {
-        background: var(--bg);
+        background: transparent;
         padding: 2rem 1rem;
         text-align: center;
         color: var(--dark);
@@ -395,6 +411,47 @@
     @media (max-width: 480px) {
         main {
             padding: 1rem min(3vw, 1.5rem);
+        }
+    }
+
+    /* 🌌 Bubble Background for Dark Mode */
+    .bubble-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: -1;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+
+    :root.dark .bubble-background {
+        opacity: 1;
+    }
+
+    .bubble {
+        position: absolute;
+        bottom: -60px;
+        background: rgba(172, 136, 245, 0.284);
+        border-radius: 50%;
+        filter: blur(7px);
+        animation-name: floatBubble;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+    }
+
+    @keyframes floatBubble {
+        0% {
+            transform: translateY(0) scale(1);
+        }
+        50% {
+            transform: translateY(-50vh) scale(1.2);
+        }
+        100% {
+            transform: translateY(-100vh) scale(1);
         }
     }
 </style>
