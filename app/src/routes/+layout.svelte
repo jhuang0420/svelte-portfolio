@@ -4,6 +4,7 @@
     import { quintOut } from "svelte/easing";
     import { afterNavigate } from "$app/navigation";
     import { onMount } from "svelte";
+    import resume from "$lib/files/resume.pdf"; // Add this import at the top
     import "../app.css";
 
     // Theme and UI states
@@ -19,6 +20,7 @@
         { name: "Projects", href: "/projects" },
         { name: "About", href: "/about" },
         { name: "Contact", href: "/contact" },
+        { name: "Resume", href: resume, external: true },
     ];
 
     // Toggle dark mode
@@ -106,15 +108,27 @@
 
                 <div class="nav-links">
                     {#each navItems as item}
-                        <a
-                            href={item.href}
-                            class:active={activeSection ===
-                                item.name.toLowerCase() ||
-                                $page.url.pathname === item.href}
-                        >
-                            {item.name}
-                            <span class="hover-underline"></span>
-                        </a>
+                        {#if item.external}
+                            <a
+                                href={item.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class:active={$page.url.pathname === item.href}
+                            >
+                                {item.name}
+                                <span class="hover-underline"></span>
+                            </a>
+                        {:else}
+                            <a
+                                href={item.href}
+                                class:active={activeSection ===
+                                    item.name.toLowerCase() ||
+                                    $page.url.pathname === item.href}
+                            >
+                                {item.name}
+                                <span class="hover-underline"></span>
+                            </a>
+                        {/if}
                     {/each}
                 </div>
 
@@ -140,14 +154,25 @@
             {#if mobileMenuOpen}
                 <div class="mobile-menu">
                     {#each navItems as item}
-                        <a
-                            href={item.href}
-                            class:active={activeSection ===
-                                item.name.toLowerCase() ||
-                                $page.url.pathname === item.href}
-                        >
-                            {item.name}
-                        </a>
+                        {#if item.external}
+                            <a
+                                href={item.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class:active={$page.url.pathname === item.href}
+                            >
+                                {item.name}
+                            </a>
+                        {:else}
+                            <a
+                                href={item.href}
+                                class:active={activeSection ===
+                                    item.name.toLowerCase() ||
+                                    $page.url.pathname === item.href}
+                            >
+                                {item.name}
+                            </a>
+                        {/if}
                     {/each}
                 </div>
             {/if}
@@ -274,6 +299,14 @@
         align-items: center;
     }
 
+    .nav-links a[href="/resume"]::after {
+        content: "↗";
+        display: inline-block;
+        margin-left: 0.25rem;
+        font-size: 0.8em;
+        opacity: 0.7;
+    }
+
     .theme-toggle {
         background: none;
         border: none;
@@ -316,6 +349,14 @@
 
     .mobile-menu a:hover {
         color: var(--primary);
+    }
+
+    .mobile-menu a[href="/resume"]::after {
+        content: "↗";
+        display: inline-block;
+        margin-left: 0.25rem;
+        font-size: 0.8em;
+        opacity: 0.7;
     }
 
     /* Footer Styles */
