@@ -246,7 +246,7 @@
     .featured-project {
         background: transparent;
         padding-bottom: 0rem;
-        padding-top: 0;
+        padding-top: 0rem;
         border-radius: 12px;
     }
 
@@ -370,7 +370,7 @@
     .featured-project::after {
         content: "";
         position: absolute;
-        margin-top: 3rem;
+        margin-top: 3.5rem;
         left: 50%;
         transform: translateX(-50%);
         width: 90%;
