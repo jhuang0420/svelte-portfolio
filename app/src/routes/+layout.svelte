@@ -363,6 +363,7 @@
     .footer {
         background: transparent;
         padding: 2rem 1rem;
+        padding-bottom: 0.5rem;
         text-align: center;
         color: var(--text);
         font-size: 0.9rem;

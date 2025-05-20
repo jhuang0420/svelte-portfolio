@@ -104,7 +104,7 @@
   .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 2.5rem;
+    gap: 3rem;
   }
 
   .project-card {
@@ -175,8 +175,8 @@
 
   .project-content {
     flex: 1;
-    padding: 2.5rem;
-    max-width: 60%;
+    padding: 2rem;
+    max-width: 100%;
   }
 
   .project-card h2 {
@@ -324,8 +324,9 @@
     }
 
     .project-content {
-      max-width: 70%;
-      padding: 2rem;
+     max-width: 100%;
+     max-height: 400px;
+     padding: 1.5rem 2rem;
     }
   }
 

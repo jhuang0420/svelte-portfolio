@@ -23,16 +23,17 @@
         <div class="bio-text">
           <h2>Background</h2>
           <p>
-            I'm an eager Software Engineer and Data Scientist with an interest
-            in building full-stack applications and deriving insights from big
-            data. I believe the best learning comes from diving head-first into
-            projects - whether that's deploying a machine learning model to
-            production or optimizing a React component's rendering performance.
+            I'm an aspiring Software Engineer and Data Scientist with an
+            interest in building full-stack applications and deriving insights
+            from big data. I believe the best learning comes from diving
+            head-first into projects - whether that's deploying a machine
+            learning model to production or learning how to create an app from
+            scratch.
           </p>
           <p>
-            When I'm not on the computer, I enjoy: cooking/baking, digital
-            photography (portrait + street), brewing coffee (currently trying
-            darker roasts), & vintage thrifting (small and unique charms).
+            When I'm not on the computer, I enjoy: cooking, baking, digital
+            photography (portrait + street), brewing coffee (barista for 4
+            years), & vintage thrifting (small and unique charms).
           </p>
           <p>
             I approach both technology and life with the same philosophy: dive
@@ -51,12 +52,15 @@
             <h3>Software Engineering</h3>
             <ul>
               <li>
-                <strong>Languages:</strong> Python, JavaScript/TypeScript, Java,
-                C/C++, SQL
+                <strong>Languages:</strong> Python, Java, C/C++, JavaScript/TypeScript,
+                SQL
               </li>
               <li>
                 <strong>Web Development:</strong> Svelte/SvelteKit, React, Node.js,
-                Flask
+                Flask, Flutter
+              </li>
+              <li>
+                <strong>Mobile Development:</strong> React Native (Expo), Firebase
               </li>
               <li><strong>Databases:</strong> PostgreSQL, MongoDB</li>
             </ul>
@@ -71,8 +75,7 @@
                 <strong>Machine Learning:</strong> TensorFlow, PyTorch, Scikit-learn
               </li>
               <li>
-                <strong>Data Visualization:</strong> Matplotlib, Seaborn, Plotly,
-                Tableau
+                <strong>Data Visualization:</strong> Matplotlib, Seaborn, Plotly
               </li>
               <li><strong>NLP/CV:</strong> Transformers, OpenCV, NLTK</li>
             </ul>
@@ -97,9 +100,9 @@
 
 <style>
   .about-page {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 0rem 1rem 1rem 1rem;
+    padding: 2rem 1.5rem 3rem;
   }
 
   .about-header {
@@ -108,10 +111,13 @@
   }
 
   .about-header h1 {
-    font-size: 2.5rem;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    color: var(--text);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    background: linear-gradient(to right, var(--primary), #4069ab);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin: 0.5rem 0 1rem;
   }
 
   .subtitle {

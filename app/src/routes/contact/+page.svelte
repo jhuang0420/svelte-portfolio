@@ -212,22 +212,25 @@
 <style>
     /* Base Styles */
     .contact-page {
-        max-width: 1200px;
+        max-width: 1400px;
         margin: 0 auto;
-        padding: 0rem 1rem 1rem 1rem;
+        padding: 2rem 1.5rem 3rem;
     }
 
     /* Header */
     .contact-header {
         text-align: center;
-        margin-bottom: 3rem;
+        margin-bottom: 4rem;
     }
 
     .contact-header h1 {
-        font-size: 2.5rem;
-        margin-top: 0.5rem;
-        margin-bottom: 0.5rem;
-        color: var(--text);
+        font-size: clamp(2rem, 5vw, 3rem);
+        font-weight: 700;
+        background: linear-gradient(to right, var(--primary), #4069ab);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        margin: 0.5rem 0 1rem;
     }
 
     .subtitle {

@@ -1,7 +1,7 @@
 <!-- src/routes/+page.svelte -->
 <script>
     import profile from "$lib/images/profile.jpg";
-    import project_img from "$lib/images/project.jpg";
+    import project_img from "$lib/images/never.jpg";
 </script>
 
 <div class="homepage">
@@ -10,12 +10,11 @@
         <div class="hero-content">
             <div class="hero-text">
                 <h1>Hi, I'm Jeffrey Huang</h1>
-                <p class="subtitle">Developer & Problem Solver</p>
+                <p class="subtitle">Full-Stack Developer & Data Analyst</p>
                 <p class="description">
-                    Passionate about uncovering meaningful insights from raw
-                    data. Curious about new technologies from machine learning
-                    and statistical analysis to efficient algorithms and
-                    visualization.
+                    Based in <b>New York City 📌</b> - Building optimized and scalable systems.
+                    Specializing in data-intensive applications and real-time dashboard
+                    development.
                 </p>
                 <div class="hero-buttons">
                     <a href="/projects" class="button primary">View My Work</a>
@@ -39,48 +38,53 @@
         <h2>My Skills</h2>
         <div class="skills-grid">
             <div class="skill-card">
-                <h3>Web Development</h3>
+                <h3>Mobile Development</h3>
                 <p>
-                    Svelte, React, JavaScript/TypeScript, HTML/CSS, Flutter,
-                    Figma
+                    React Native (Expo), Flutter, Firebase (Auth/Realtime DB),
+                    Mobile CI/CD
                 </p>
             </div>
             <div class="skill-card">
-                <h3>Backend Development</h3>
-                <p>Node.js, Python, SQL, REST APIs, Flask, MongoDB</p>
-            </div>
-            <div class="skill-card">
-                <h3>Data Science & ML</h3>
+                <h3>Full-Stack Web</h3>
                 <p>
-                    Pandas, NumPy, Scikit-Learn, TensorFlow, Keras, EDA,
-                    Computer Vision
+                    React/Svelte, Node.js, Python (Flask/FastAPI), REST APIs
                 </p>
             </div>
+            <div class="skill-card">
+                <h3>Machine Learning</h3>
+                <p>
+                    PyTorch, TensorFlow, Computer Vision, Scikit-Learn, MLflow
+                </p>
+            </div>
+
             <div class="skill-card">
                 <h3>Languages</h3>
-                <p>Python, C/C++, Java, R, JavaScript/TypeScript, SQL</p>
+                <p>
+                    C/C++, Java, Python, JavaScript/TypeScript, CUDA, HTML/CSS, R
+                </p>
             </div>
         </div>
     </section>
 
     <!-- Featured Project -->
     <section class="section featured-project">
-        <h2>Featured Project</h2>
+        <h2>Currently Working on ...</h2>
         <div class="project-card">
             <div class="project-content">
-                <h3>Portfolio Website</h3>
+                <h3>Neverlasting App</h3>
                 <p>
-                    This very website you're viewing! Built with SvelteKit to
-                    showcase my skills and projects with a clean, responsive
-                    design.
+                    Match with a stranger for a one-time, in-person coffee chat. 
+                    Conversations are anonymously recorded by users (with consent), then 
+                    vanish forever—unless both choose to archive them as crowd-sourced 
+                    audio art.
                 </p>
                 <div class="tech-tags">
-                    <span>SvelteKit</span>
-                    <span>TypeScript</span>
-                    <span>CSS</span>
+                    <span>React Native</span>
+                    <span>Firebase</span>
+                    <span>FFmpeg</span>
                 </div>
-                <a href="/projects/portfolio" class="button primary">
-                    View Project Details
+                <a href="https://github.com/jhuang0420/Neverlasting" class="button primary">
+                    View Project
                 </a>
             </div>
             <div class="project-image">
@@ -114,10 +118,12 @@
         display: flex;
         flex-direction: column;
         gap: 4rem;
-        padding-bottom: 2rem;
+        padding-bottom: 0rem;
     }
 
     section {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
         scroll-margin-top: 2rem;
     }
 
@@ -239,7 +245,8 @@
     /* Project Section */
     .featured-project {
         background: transparent;
-        padding: 3rem 0;
+        padding-bottom: 0rem;
+        padding-top: 0;
         border-radius: 12px;
     }
 
@@ -354,7 +361,7 @@
     .skills,
     .featured-project {
         position: relative;
-        padding-bottom: 5rem;
+        padding-bottom: 2rem;
     }
 
     /* Divider for sections that should have it */
@@ -363,7 +370,7 @@
     .featured-project::after {
         content: "";
         position: absolute;
-        bottom: 0;
+        margin-top: 3rem;
         left: 50%;
         transform: translateX(-50%);
         width: 90%;
@@ -380,12 +387,11 @@
     /* No divider for CTA section */
     .cta {
         position: relative;
-        padding-bottom: 3rem;
+        padding-bottom: 1rem;
     }
     .cta::after {
         display: none;
     }
-
 
     /* Responsive Design */
     @media (max-width: 800px) {
@@ -410,6 +416,7 @@
         .project-card {
             flex-direction: column;
             align-items: center;
+            gap: 1rem;
         }
 
         .project-image {
